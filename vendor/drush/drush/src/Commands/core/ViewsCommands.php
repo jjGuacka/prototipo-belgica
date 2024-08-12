@@ -10,16 +10,14 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\views\Views;
 use Drush\Attributes as CLI;
-use Drush\Commands\AutowireTrait;
 use Drush\Commands\DrushCommands;
+use Drupal\views\Views;
 use Drush\Utils\StringUtils;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class ViewsCommands extends DrushCommands
 {
-    use AutowireTrait;
-
     const DEV = 'views:dev';
     const EXECUTE = 'views:execute';
     const LIST = 'views:list';
@@ -33,6 +31,18 @@ final class ViewsCommands extends DrushCommands
         protected EntityTypeManagerInterface $entityTypeManager,
         protected RendererInterface $renderer
     ) {
+    }
+
+    public static function create(ContainerInterface $container): self
+    {
+        $commandHandler = new static(
+            $container->get('config.factory'),
+            $container->get('module_handler'),
+            $container->get('entity_type.manager'),
+            $container->get('renderer')
+        );
+
+        return $commandHandler;
     }
 
     public function getConfigFactory(): ConfigFactoryInterface
@@ -127,11 +137,11 @@ final class ViewsCommands extends DrushCommands
 
         // Get the --name option.
         $name = StringUtils::csvToArray($options['name']);
-        $with_name = $name !== [];
+        $with_name = !empty($name);
 
         // Get the --tags option.
         $tags =  StringUtils::csvToArray($options['tags']);
-        $with_tags = $tags !== [];
+        $with_tags = !empty($tags);
 
         // Get the --status option. Store user input apart to reuse it after.
         $status = $options['status'];

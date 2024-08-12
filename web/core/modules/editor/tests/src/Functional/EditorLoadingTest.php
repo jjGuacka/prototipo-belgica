@@ -139,6 +139,10 @@ class EditorLoadingTest extends BrowserTestBase {
       'editor' => 'unicorn',
       'image_upload' => [
         'status' => FALSE,
+        'scheme' => 'public',
+        'directory' => 'inline-images',
+        'max_size' => '',
+        'max_dimensions' => ['width' => '', 'height' => ''],
       ],
     ]);
     $editor->save();
@@ -180,15 +184,16 @@ class EditorLoadingTest extends BrowserTestBase {
     $select = $this->assertSession()->elementExists('css', 'select.js-filter-list');
     $this->assertSame('edit-body-0-value', $select->getAttribute('data-editor-for'));
 
+    // Load the editor image dialog form and make sure it does not fatal.
+    $this->drupalGet('editor/dialog/image/full_html');
+    $this->assertSession()->statusCodeEquals(200);
+
     $this->drupalLogout();
 
     // Also associate a text editor with the "Plain Text" text format.
     $editor = Editor::create([
       'format' => 'plain_text',
       'editor' => 'unicorn',
-      'image_upload' => [
-        'status' => FALSE,
-      ],
     ]);
     $editor->save();
 
@@ -254,6 +259,10 @@ class EditorLoadingTest extends BrowserTestBase {
       'editor' => 'unicorn',
       'image_upload' => [
         'status' => FALSE,
+        'scheme' => 'public',
+        'directory' => 'inline-images',
+        'max_size' => '',
+        'max_dimensions' => ['width' => '', 'height' => ''],
       ],
     ]);
     $editor->save();
@@ -285,9 +294,6 @@ class EditorLoadingTest extends BrowserTestBase {
     Editor::create([
       'format' => 'full_html',
       'editor' => 'trex',
-      'image_upload' => [
-        'status' => FALSE,
-      ],
     ])->save();
 
     $this->drupalGet('node/1/edit');

@@ -5,27 +5,21 @@ declare(strict_types=1);
 namespace Drush\Commands\core;
 
 use Consolidation\SiteAlias\SiteAlias;
-use Consolidation\SiteAlias\SiteAliasManagerInterface;
+use Consolidation\SiteAlias\SiteAliasManagerAwareTrait;
+use Consolidation\SiteProcess\ProcessManager;
 use Drush\Attributes as CLI;
 use Drush\Boot\DrupalBootLevels;
-use Drush\Commands\AutowireTrait;
 use Drush\Commands\config\ConfigImportCommands;
 use Drush\Commands\DrushCommands;
 use Drush\Drush;
-use Drush\SiteAlias\ProcessManager;
+use Drush\SiteAlias\SiteAliasManagerAwareInterface;
 
 #[CLI\Bootstrap(DrupalBootLevels::NONE)]
-final class DeployCommands extends DrushCommands
+final class DeployCommands extends DrushCommands implements SiteAliasManagerAwareInterface
 {
-    use AutowireTrait;
+    use SiteAliasManagerAwareTrait;
 
     const DEPLOY = 'deploy';
-
-    public function __construct(
-        private readonly SiteAliasManagerInterface $siteAliasManager
-    ) {
-        parent::__construct();
-    }
 
     /**
      * Run several commands after performing a code deployment.
@@ -36,7 +30,7 @@ final class DeployCommands extends DrushCommands
     #[CLI\Topics(topics: [DocsCommands::DEPLOY])]
     public function deploy(): void
     {
-        $self = $this->siteAliasManager->getSelf();
+        $self = $this->siteAliasManager()->getSelf();
         $redispatchOptions = Drush::redispatchOptions();
         $manager = $this->processManager();
 
@@ -55,6 +49,11 @@ final class DeployCommands extends DrushCommands
         $process->mustRun($process->showRealtime());
     }
 
+    /**
+     * @param ProcessManager $manager
+     * @param SiteAlias $self
+     * @param array $redispatchOptions
+     */
     public function cacheRebuild(ProcessManager $manager, SiteAlias $self, array $redispatchOptions): void
     {
         // It is possible that no updates were pending and thus no caches cleared yet.
