@@ -20,6 +20,7 @@ final class MaintCommands extends DrushCommands
 
     public function __construct(protected StateInterface $state)
     {
+        parent::__construct();
     }
 
     public function getState(): StateInterface
