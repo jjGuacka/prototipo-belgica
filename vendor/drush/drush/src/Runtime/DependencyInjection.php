@@ -11,7 +11,6 @@ use Consolidation\SiteAlias\SiteAliasManager;
 use Consolidation\SiteAlias\SiteAliasManagerAwareInterface;
 use Consolidation\SiteAlias\SiteAliasManagerInterface;
 use Consolidation\SiteProcess\ProcessManagerAwareInterface;
-use Drush\Application;
 use Drush\Boot\BootstrapManager;
 use Drush\Cache\CommandCache;
 use Drush\Command\DrushCommandInfoAlterer;
@@ -27,7 +26,10 @@ use Drush\Symfony\DrushStyleInjector;
 use League\Container\Container;
 use League\Container\ContainerInterface;
 use Robo\Robo;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -35,9 +37,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DependencyInjection
 {
-    const SITE_ALIAS_MANAGER = 'site.alias.manager';
     const BOOTSTRAP_MANAGER = 'bootstrap.manager';
     const LOADER = 'loader';
+    const SITE_ALIAS_MANAGER = 'site.alias.manager';
     protected array $handlers = [];
 
     public function desiredHandlers($handlerList): void
@@ -58,6 +60,13 @@ class DependencyInjection
         SiteAliasManager $aliasManager
     ): Container {
 
+        // Create default input and output objects if they were not provided
+        if (!$input) {
+            $input = new StringInput('');
+        }
+        if (!$output) {
+            $output = new ConsoleOutput();
+        }
         // Set up our dependency injection container.
         $container = new Container();
 

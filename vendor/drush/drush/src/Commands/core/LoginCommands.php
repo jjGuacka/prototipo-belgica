@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Drush\Commands\core;
 
-use Consolidation\SiteAlias\SiteAliasManagerInterface;
+use Consolidation\SiteAlias\SiteAliasManagerAwareInterface;
+use Consolidation\SiteAlias\SiteAliasManagerAwareTrait;
 use Drupal\Core\Url;
 use Drupal\user\Entity\User;
 use Drush\Attributes as CLI;
@@ -15,17 +16,17 @@ use Drush\Commands\DrushCommands;
 use Drush\Drush;
 use Drush\Exec\ExecTrait;
 
-#[CLI\Bootstrap(DrupalBootLevels::NONE)]
-final class LoginCommands extends DrushCommands
+#[CLI\Bootstrap(level: DrupalBootLevels::NONE)]
+final class LoginCommands extends DrushCommands implements SiteAliasManagerAwareInterface
 {
     use AutowireTrait;
+    use SiteAliasManagerAwareTrait;
     use ExecTrait;
 
     const LOGIN = 'user:login';
 
     public function __construct(
-        private readonly BootstrapManager $bootstrapManager,
-        private readonly SiteAliasManagerInterface $siteAliasManager
+        private BootstrapManager $bootstrapManager
     ) {
         parent::__construct();
     }
@@ -50,7 +51,7 @@ final class LoginCommands extends DrushCommands
     {
         // Redispatch if called against a remote-host so a browser is started on the
         // the *local* machine.
-        $aliasRecord = $this->siteAliasManager->getSelf();
+        $aliasRecord = $this->siteAliasManager()->getSelf();
         if ($this->processManager()->hasTransport($aliasRecord)) {
             $process = $this->processManager()->drush($aliasRecord, self::LOGIN, [$path], Drush::redispatchOptions());
             $process->mustRun();
