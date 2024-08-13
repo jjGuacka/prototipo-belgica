@@ -16,9 +16,11 @@ module:
   contextual: 0
   datetime: 0
   dblog: 0
+  ds_switch_view_mode: 0
   dynamic_page_cache: 0
   editor: 0
   field: 0
+  field_group: 0
   field_ui: 0
   file: 0
   filter: 0
@@ -26,6 +28,8 @@ module:
   history: 0
   image: 0
   language: 0
+  layout_builder: 0
+  layout_discovery: 0
   link: 0
   locale: 0
   menu_link_content: 0
@@ -41,10 +45,28 @@ module:
   system: 0
   taxonomy: 0
   text: 0
+  token: 0
   toolbar: 0
+  ui_patterns: 0
+  ui_patterns_ds: 0
+  ui_patterns_field_group: 0
+  ui_patterns_layouts: 0
+  ui_patterns_library: 0
+  ui_patterns_settings: 0
+  ui_patterns_views: 0
+  ui_styles: 0
+  ui_styles_block: 0
+  ui_styles_ckeditor5: 0
+  ui_styles_entity_status: 0
+  ui_styles_layout_builder: 0
+  ui_styles_library: 0
+  ui_styles_page: 0
+  ui_styles_views: 0
   update: 0
   user: 0
   views_ui: 0
+  ds: 1
+  ds_extras: 2
   views: 10
   standard: 1000
 theme:
@@ -52,4 +74,5 @@ theme:
   claro: 0
   stable9: 0
   bootstrap5: 0
+  tragelsports_theme: 0
 profile: standard
