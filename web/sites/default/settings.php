@@ -288,7 +288,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '';
+$settings['hash_salt'] = 'EiRiQKeTPFdQl2Kqz4kWUrs-usAyiPGOpGaJW27-guRs16QcTNsG0RVaTVXzt0ncktvH6C0B1g';
 
 /**
  * Deployment identifier.
@@ -897,3 +897,16 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
+$databases['default']['default'] = array (
+  'database' => 'u524079009_drupalPrototip',
+  'username' => 'u524079009_userDrupal',
+  'password' => 'Mx?#L#!Cq$i0',
+  'prefix' => '',
+  'host' => 'localhost',
+  'port' => '3306',
+  'isolation_level' => 'READ COMMITTED',
+  'driver' => 'mysql',
+  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+);
+$settings['config_sync_directory'] = 'sites/default/files/config_wxOCV44PkCfy6JIJL_hlp9LIWaVnNsFSE-2UCQGxOyp9fGxn7wBMcpTBiNG6sJc1XMMGT1GG3Q/sync';
