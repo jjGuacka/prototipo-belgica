@@ -1,8 +1,11 @@
 name: 'Tragelsports Theme'
 type: theme
-description: 'Tragelsports Theme subtheme based on Bootstrap 5 theme.'
+description: 'Tragelsports Theme basado en Bootstrap 5.'
 core_version_requirement: '^10.1 || ^11.0'
-'base theme': bootstrap5
+dependencies:
+  - drupal:components (^3.0)
+  - drupal:emulsify_twig (^5.0)
+base theme: bootstrap5
 libraries:
   - tragelsports_theme/global-styling
 ckeditor_stylesheets:
