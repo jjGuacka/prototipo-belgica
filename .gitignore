@@ -55,3 +55,4 @@ php_errors.log
 /test
 /testweb/sites/default/files/php/twig/*/.htaccess
 web/sites/default/settings.php
+web/sites/default/settings.php
