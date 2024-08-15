@@ -4,3 +4,4 @@ settings.ddev.php
 drushrc.php
 settings.php
 services.yml
+*.php
