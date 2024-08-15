@@ -59,3 +59,4 @@ web/.env
 web/sites/default/.env
 web/sites/defautl/settings.php
 web/themes/custom/tragelsports_theme/package.json
+web/sites/default/default.settings.php
