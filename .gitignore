@@ -58,3 +58,4 @@ php_errors.log
 web/.env
 web/sites/default/.env
 web/sites/defautl/settings.php
+web/sites/default/default.settings.php
