@@ -1328,6 +1328,58 @@
             "install-path": "../../web/themes/contrib/bootstrap5"
         },
         {
+            "name": "drupal/components",
+            "version": "3.0.0-beta3",
+            "version_normalized": "3.0.0.0-beta3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/components.git",
+                "reference": "3.0.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/components-3.0.0-beta3.zip",
+                "reference": "3.0.0-beta3",
+                "shasum": "47ced4332f0a655ca38ae1b54e97a8e78d59f0bc"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.0-beta3",
+                    "datestamp": "1651759488",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "JohnAlbin",
+                    "homepage": "https://www.drupal.org/user/32095",
+                    "email": "virtually.johnalbin@gmail.com"
+                },
+                {
+                    "name": "RobLoach",
+                    "homepage": "https://www.drupal.org/user/61114"
+                }
+            ],
+            "description": "Registers folders of components defined by your theme or module as Twig namespaces",
+            "homepage": "https://drupal.org/project/components",
+            "support": {
+                "source": "https://git.drupalcode.org/project/components"
+            },
+            "install-path": "../../web/modules/contrib/components"
+        },
+        {
             "name": "drupal/core",
             "version": "10.3.2",
             "version_normalized": "10.3.2.0",
@@ -1750,6 +1802,81 @@
                 "irc": "irc://irc.freenode.org/drupal-contribute"
             },
             "install-path": "../../web/modules/contrib/ds"
+        },
+        {
+            "name": "drupal/emulsify_twig",
+            "version": "5.0.0",
+            "version_normalized": "5.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/emulsify_twig.git",
+                "reference": "5.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/emulsify_twig-5.0.0.zip",
+                "reference": "5.0.0",
+                "shasum": "382871d3dd5040f693fda03a246a9ca667225f8c"
+            },
+            "require": {
+                "drupal/core": "^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "5.0.0",
+                    "datestamp": "1714690018",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "amazingrando",
+                    "homepage": "https://www.drupal.org/user/609802"
+                },
+                {
+                    "name": "americkson",
+                    "homepage": "https://www.drupal.org/user/1460062"
+                },
+                {
+                    "name": "callinmullaney",
+                    "homepage": "https://www.drupal.org/user/2532054"
+                },
+                {
+                    "name": "ccjjmartin",
+                    "homepage": "https://www.drupal.org/user/3210801"
+                },
+                {
+                    "name": "codechefmarc",
+                    "homepage": "https://www.drupal.org/user/2952573"
+                },
+                {
+                    "name": "evanmwillhite",
+                    "homepage": "https://www.drupal.org/user/562168"
+                },
+                {
+                    "name": "fk_bender",
+                    "homepage": "https://www.drupal.org/user/3539842"
+                },
+                {
+                    "name": "generalredneck",
+                    "homepage": "https://www.drupal.org/user/368854"
+                }
+            ],
+            "description": "Provides Twig functions for use with Emulsify",
+            "homepage": "http://emulsify.info",
+            "support": {
+                "source": "https://git.drupalcode.org/project/emulsify_twig"
+            },
+            "install-path": "../../web/modules/contrib/emulsify_twig"
         },
         {
             "name": "drupal/field_group",
