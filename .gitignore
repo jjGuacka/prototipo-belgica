@@ -6,7 +6,7 @@
 /web/themes/contrib/
 /web/profiles/contrib/
 /web/libraries/
-/web/sites/default/*.php
+/web/sites/default/settings.php
 
 # Ignore sensitive information
 /web/sites/*/settings.local.php
@@ -55,5 +55,6 @@ php_errors.log
 /.ddev/
 /test
 /testweb/sites/default/files/php/twig/*/.htaccess
-web/sites/default/settings.php
-web/sites/default/settings.php
+web/.env
+web/sites/default/.env
+web/sites/defautl/settings.php
