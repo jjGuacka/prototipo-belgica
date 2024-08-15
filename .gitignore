@@ -6,12 +6,14 @@
 /web/themes/contrib/
 /web/profiles/contrib/
 /web/libraries/
+/web/sites/default/settings.php
 
 # Ignore sensitive information
 /web/sites/*/settings.local.php
 /web/sites/*/settings.dev.php
 /web/sites/*/settings.qa.php
 /web/sites/*/services.yml
+/web/sites/*/*.php
 /web/sites/*/development.services.yml
 /web/sites/development.services.yml
 
