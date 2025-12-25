@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-lg menu-ppal">
+  <div class="container-fluid">
+    <a href="#" class="navbar-brand">
+      <img class="logo__image" src="./sites/default/files/logo.png" alt="Logo">
+    </a>
+    <button id="botonMenu" class="navbar-toggler" type="button" data-bs-toggle="show" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list"></i>
+    </button>    
+    <div class="navbar-collapse  collapse" id="navbarNavDropdown">
+      {% include "@molecules/menus/_menu.twig" with {
+        items: menu_items,
+      } %}
+    </div>
+  </div>
+</nav>

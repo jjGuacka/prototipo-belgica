@@ -1,0 +1,44 @@
+@use "../../../00-base/00-defaults/01-variables" as *;
+@use "../../../00-base/00-defaults/02-breakpoints" as *;
+@use "../../../00-base/00-defaults/03-mixins" as *;
+@use "../../../00-base/01-colors/colors" as *;
+
+.header {
+  margin-bottom: $space-quadruple;
+  width: 100%;
+  margin: auto;
+  padding: unset;
+}
+
+.header__inner {
+  @include wrapper;
+
+  & {
+    width: 100%;
+    padding: unset;
+  }
+}
+
+.header__primary {
+  @include breakpoint("medium") {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    padding: unset;
+    width: 100%;
+    margin: auto;
+  }
+}
+
+.header__branding {
+  width: 100%;
+  @include breakpoint("medium") {
+    margin-right: auto;
+    padding: 0;
+  }
+}
+.header__menu{
+  width: 100%;
+}

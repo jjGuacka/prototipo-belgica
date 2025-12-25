@@ -16,11 +16,17 @@ use Drupal\user\Entity\User;
 class NodeAccessGrantsCacheContextTest extends NodeTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['node_access_test'];
+
+  /**
+   * {@inheritdoc}
+   *
+   * @todo Remove and fix test to not rely on super user.
+   * @see https://www.drupal.org/project/drupal/issues/3437620
+   */
+  protected bool $usesSuperUserAccessPolicy = TRUE;
 
   /**
    * {@inheritdoc}
@@ -43,11 +49,6 @@ class NodeAccessGrantsCacheContextTest extends NodeTestBase {
    * @var \Drupal\user\Entity\User
    */
   protected User $noAccessUser2;
-
-  /**
-   * User with permission to bypass node access.
-   */
-  protected $adminUser;
 
   /**
    * @var array
@@ -83,12 +84,9 @@ class NodeAccessGrantsCacheContextTest extends NodeTestBase {
       'access content overview',
       'access content',
     ]);
-    $this->adminUser = $this->drupalCreateUser([
-      'bypass node access',
-    ]);
 
     $this->userMapping = [
-      1 => $this->adminUser,
+      1 => $this->rootUser,
       2 => $this->accessUser,
       3 => $this->noAccessUser,
     ];

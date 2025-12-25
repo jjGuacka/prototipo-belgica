@@ -288,7 +288,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '';
+$settings['hash_salt'] = 'fMYgqG2JEH3jpkd3XsAl_6aAIZY6n0bRI7aT-KfXHCMlOdyp0xHmnYBYMXJ7JZkgMcaLjjRcqw';
 
 /**
  * Deployment identifier.
@@ -876,8 +876,27 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # $settings['migrate_file_private_path'] = '';
 
 // Automatically generated include for settings managed by ddev.
-if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev.php')) {
+// if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev.php')) {
+//   include __DIR__ . '/settings.ddev.php';
+// }
+if (file_exists(__DIR__ . '/settings.ddev.php') && getenv('IS_DDEV_PROJECT') == 'true') {
   include __DIR__ . '/settings.ddev.php';
+}
+
+if (file_exists($app_root . '/' . $site_path . '/settings.dev.php')) {
+  include $app_root . '/' . $site_path . '/settings.dev.php';
+}
+
+if (file_exists($app_root . '/' . $site_path . '/settings.qa.php')) {
+  include $app_root . '/' . $site_path . '/settings.qa.php';
+}
+
+if (file_exists($app_root . '/' . $site_path . '/settings.prod.php')) {
+  include $app_root . '/' . $site_path . '/settings.prod.php';
+}
+
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+  include $app_root . '/' . $site_path . '/settings.local.php';
 }
 
 /**
@@ -897,3 +916,22 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
+
+
+$settings['config_sync_directory'] = 'sites/default/files/config/sync';
+$databases['default']['default'] = array (
+  'database' => 'u524079009_drupalPrototip',
+  'username' => 'u524079009_userDrupal',
+  'password' => 'Mx?#L#!Cq$i0',
+  'prefix' => '',
+  'host' => 'localhost',
+  'port' => '3306',
+  'isolation_level' => 'READ COMMITTED',
+  'driver' => 'mysql',
+  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+);
+
+if ( isset($GLOBALS['request']) && '/web/index.php' === $GLOBALS['request']->server->get('SCRIPT_NAME') ) {
+    $GLOBALS['request']->server->set('SCRIPT_NAME', '/index.php');
+}

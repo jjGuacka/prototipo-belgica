@@ -43,9 +43,7 @@ class EditorSecurityTest extends BrowserTestBase {
   protected static $sampleContentSecuredEmbedAllowed = '<p>Hello, Dumbo Octopus!</p>alert(0)<embed type="image/svg+xml" src="image.svg" />';
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['filter', 'editor', 'editor_test', 'node'];
 
@@ -125,9 +123,6 @@ class EditorSecurityTest extends BrowserTestBase {
     $editor = Editor::create([
       'format' => 'restricted_with_editor',
       'editor' => 'unicorn',
-      'image_upload' => [
-        'status' => FALSE,
-      ],
     ]);
     $editor->save();
     $format = FilterFormat::create([
@@ -148,9 +143,6 @@ class EditorSecurityTest extends BrowserTestBase {
     $editor = Editor::create([
       'format' => 'restricted_plus_dangerous_tag_with_editor',
       'editor' => 'unicorn',
-      'image_upload' => [
-        'status' => FALSE,
-      ],
     ]);
     $editor->save();
     $format = FilterFormat::create([
@@ -170,9 +162,6 @@ class EditorSecurityTest extends BrowserTestBase {
     $editor = Editor::create([
       'format' => 'unrestricted_with_editor',
       'editor' => 'unicorn',
-      'image_upload' => [
-        'status' => FALSE,
-      ],
     ]);
     $editor->save();
 

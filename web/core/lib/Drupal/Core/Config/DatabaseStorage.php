@@ -2,6 +2,7 @@
 
 namespace Drupal\Core\Config;
 
+use Drupal\Core\Database\Database;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\DatabaseException;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
@@ -105,6 +106,10 @@ class DatabaseStorage implements StorageInterface {
    * {@inheritdoc}
    */
   public function readMultiple(array $names) {
+    if (empty($names)) {
+      return [];
+    }
+
     $list = [];
     try {
       $list = $this->connection->query('SELECT [name], [data] FROM {' . $this->connection->escapeTable($this->table) . '} WHERE [collection] = :collection AND [name] IN ( :names[] )', [':collection' => $this->collection, ':names[]' => $names], $this->options)->fetchAllKeyed();
@@ -151,7 +156,10 @@ class DatabaseStorage implements StorageInterface {
    * @return bool
    */
   protected function doWrite($name, $data) {
-    return (bool) $this->connection->merge($this->table, $this->options)
+    // @todo Remove the 'return' option in Drupal 11.
+    // @see https://www.drupal.org/project/drupal/issues/3256524
+    $options = ['return' => Database::RETURN_AFFECTED] + $this->options;
+    return (bool) $this->connection->merge($this->table, $options)
       ->keys(['collection', 'name'], [$this->collection, $name])
       ->fields(['data' => $data])
       ->execute();
@@ -225,7 +233,10 @@ class DatabaseStorage implements StorageInterface {
    * @todo Ignore replica targets for data manipulation operations.
    */
   public function delete($name) {
-    return (bool) $this->connection->delete($this->table, $this->options)
+    // @todo Remove the 'return' option in Drupal 11.
+    // @see https://www.drupal.org/project/drupal/issues/3256524
+    $options = ['return' => Database::RETURN_AFFECTED] + $this->options;
+    return (bool) $this->connection->delete($this->table, $options)
       ->condition('collection', $this->collection)
       ->condition('name', $name)
       ->execute();
@@ -237,7 +248,10 @@ class DatabaseStorage implements StorageInterface {
    * @throws \PDOException
    */
   public function rename($name, $new_name) {
-    return (bool) $this->connection->update($this->table, $this->options)
+    // @todo Remove the 'return' option in Drupal 11.
+    // @see https://www.drupal.org/project/drupal/issues/3256524
+    $options = ['return' => Database::RETURN_AFFECTED] + $this->options;
+    return (bool) $this->connection->update($this->table, $options)
       ->fields(['name' => $new_name])
       ->condition('name', $name)
       ->condition('collection', $this->collection)
@@ -290,7 +304,10 @@ class DatabaseStorage implements StorageInterface {
    */
   public function deleteAll($prefix = '') {
     try {
-      return (bool) $this->connection->delete($this->table, $this->options)
+      // @todo Remove the 'return' option in Drupal 11.
+      // @see https://www.drupal.org/project/drupal/issues/3256524
+      $options = ['return' => Database::RETURN_AFFECTED] + $this->options;
+      return (bool) $this->connection->delete($this->table, $options)
         ->condition('name', $prefix . '%', 'LIKE')
         ->condition('collection', $this->collection)
         ->execute();

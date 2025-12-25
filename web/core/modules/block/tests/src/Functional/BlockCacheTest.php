@@ -15,9 +15,7 @@ use Drupal\Tests\BrowserTestBase;
 class BlockCacheTest extends BrowserTestBase {
 
   /**
-   * Modules to install.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['block', 'block_test', 'test_page_test'];
 
@@ -27,7 +25,7 @@ class BlockCacheTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * A user with permission to administer blocks.
+   * A user with permission to create and edit books and to administer blocks.
    *
    * @var object
    */

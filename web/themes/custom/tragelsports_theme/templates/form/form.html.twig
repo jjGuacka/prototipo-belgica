@@ -1,0 +1,5 @@
+{% if element["#form_id"]|render|striptags|trim != "user_register_form"%}
+<form{{ attributes }}>
+    {{ children }}
+</form>
+{% endif %}

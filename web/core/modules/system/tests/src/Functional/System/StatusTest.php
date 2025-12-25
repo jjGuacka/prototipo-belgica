@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\system\Functional\System;
 
+use Drupal\Component\Utility\Bytes;
 use Drupal\Core\Url;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
@@ -180,13 +181,23 @@ class StatusTest extends BrowserTestBase {
     $this->assertSession()->elementNotExists('xpath', "//a[contains(@href, 'http://example.com/deprecated_theme')]");
 
     // Check if pg_trgm extension is enabled on postgres.
-    if (\Drupal::database()->databaseType() == 'pgsql') {
+    if ($this->getDatabaseConnection()->databaseType() == 'pgsql') {
       $this->assertSession()->pageTextContains('PostgreSQL pg_trgm extension');
       $elements = $this->xpath('//details[@class="system-status-report__entry"]//div[contains(text(), :text)]', [
         ':text' => 'The pg_trgm PostgreSQL extension is present.',
       ]);
       $this->assertCount(1, $elements);
       $this->assertStringStartsWith('Available', $elements[0]->getParent()->getText());
+    }
+
+    // Test APCu status.
+    $elements = $this->xpath('//details[summary[contains(@class, "system-status-report__status-title") and normalize-space(text()) = "PHP APCu caching"]]/div[@class="system-status-report__entry__value"]/text()');
+    // Ensure the status is not a warning if APCu size is greater than or equal
+    // to the recommended size.
+    if (preg_match('/^Enabled \((.*)\)$/', $elements[0]->getText(), $matches)) {
+      if (Bytes::toNumber($matches[1]) >= 1024 * 1024 * 32) {
+        $this->assertFalse($elements[0]->find('xpath', '../../summary')->hasClass('system-status-report__status-icon--warning'));
+      }
     }
   }
 

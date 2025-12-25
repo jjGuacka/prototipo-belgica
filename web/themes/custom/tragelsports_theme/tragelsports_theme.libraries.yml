@@ -1,0 +1,15 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {  }
+  js:
+    theme:
+      js/script.js: {  }
+      
+main-menu:
+  js:
+    components/02-molecules/menus/main-menu/main-menu.js: {}
+
+main-js:
+  js:
+    js/script.min.js: {}

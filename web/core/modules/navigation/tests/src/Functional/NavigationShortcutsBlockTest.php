@@ -20,9 +20,7 @@ class NavigationShortcutsBlockTest extends PageCacheTagsTestBase {
   use AssertPageCacheContextsAndTagsTrait;
 
   /**
-   * Modules to install.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['navigation', 'shortcut', 'test_page_test'];
 
@@ -92,6 +90,7 @@ class NavigationShortcutsBlockTest extends PageCacheTagsTestBase {
     ]));
     $this->verifyDynamicPageCache($test_page_url, 'MISS');
     $this->verifyDynamicPageCache($test_page_url, 'HIT');
+    $this->assertSession()->elementNotExists('css', '#menu--shortcuts');
     $this->assertSession()->pageTextNotContains('Shortcuts');
     $this->assertSession()->linkNotExists('Cron');
 
@@ -117,6 +116,7 @@ class NavigationShortcutsBlockTest extends PageCacheTagsTestBase {
     $this->verifyDynamicPageCache($test_page_url, 'MISS');
     $this->verifyDynamicPageCache($test_page_url, 'HIT');
     $this->assertCacheContexts(['user', 'url.query_args:_wrapper_format', 'session']);
+    $this->assertSession()->elementExists('css', '#menu--shortcuts');
     $this->assertSession()->pageTextContains('Shortcuts');
     $this->assertSession()->linkExists('Cron');
 

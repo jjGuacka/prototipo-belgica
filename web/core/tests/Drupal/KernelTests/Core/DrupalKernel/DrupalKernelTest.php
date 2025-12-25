@@ -7,7 +7,6 @@ namespace Drupal\KernelTests\Core\DrupalKernel;
 use Composer\Autoload\ClassLoader;
 use Drupal\Core\DrupalKernel;
 use Drupal\Core\DrupalKernelInterface;
-use Drupal\Core\Utility\Error;
 use Drupal\KernelTests\KernelTestBase;
 use org\bovigo\vfs\vfsStream;
 use Prophecy\Argument;
@@ -26,17 +25,6 @@ class DrupalKernelTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function tearDown(): void {
-    $currentErrorHandler = Error::currentErrorHandler();
-    if (is_string($currentErrorHandler) && $currentErrorHandler === '_drupal_error_handler') {
-      restore_error_handler();
-    }
-    parent::tearDown();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   protected function bootKernel() {
     // Do not boot the kernel, because we are testing aspects of this process.
   }
@@ -51,7 +39,7 @@ class DrupalKernelTest extends KernelTestBase {
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   A request object to use in booting the kernel.
    * @param array $modules_enabled
-   *   A list of modules to enable on the kernel.
+   *   A list of modules to install on the kernel.
    *
    * @return \Drupal\Core\DrupalKernel
    *   New kernel for testing.

@@ -13,8 +13,6 @@ use Drupal\filter\FilterPluginCollection;
 use Drupal\filter\Plugin\FilterInterface;
 use Drupal\KernelTests\KernelTestBase;
 
-// cspell:ignore toolongdomainexampledomainexampledomainexampledomainexampledomain
-
 /**
  * Tests Filter module filters individually.
  *
@@ -23,9 +21,7 @@ use Drupal\KernelTests\KernelTestBase;
 class FilterKernelTest extends KernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['system', 'filter'];
 
@@ -904,11 +900,11 @@ class FilterKernelTest extends KernelTestBase {
       '<script>
       <!--
         // @see www.example.com
-        var example_url = "http://example.net";
+        var exampleurl = "http://example.net";
       -->
       <!--//--><![CDATA[//><!--
         // @see www.example.com
-        var example_url = "http://example.net";
+        var exampleurl = "http://example.net";
       //--><!]]>
       </script>' => [
         'href="http://www.example.com"' => FALSE,

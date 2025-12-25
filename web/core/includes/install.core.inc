@@ -89,8 +89,7 @@ const INSTALL_TASK_RUN_IF_NOT_COMPLETED = 3;
  *
  * @param $class_loader
  *   The class loader. Normally Composer's ClassLoader, as included by the
- *   front controller, but may also be decorated; e.g.,
- *   \Symfony\Component\ClassLoader\ApcClassLoader.
+ *   front controller, but may also be decorated.
  * @param $settings
  *   An optional array of installation settings. Leave this empty for a normal,
  *   interactive, browser-based installation intended to occur over multiple
@@ -288,8 +287,7 @@ function install_state_defaults() {
  *
  * @param $class_loader
  *   The class loader. Normally Composer's ClassLoader, as included by the
- *   front controller, but may also be decorated; e.g.,
- *   \Symfony\Component\ClassLoader\ApcClassLoader.
+ *   front controller, but may also be decorated.
  * @param $install_state
  *   An array of information about the current installation state. This is
  *   modified with information gleaned from the beginning of the page request.
@@ -982,7 +980,16 @@ function install_get_form($form_id, array &$install_state) {
     // values taken from the installation state.
     $install_form_id = $form_builder->getFormId($form_id, $form_state);
     if (!empty($install_state['forms'][$install_form_id])) {
-      $form_state->setValues($install_state['forms'][$install_form_id]);
+      $values = $install_state['forms'][$install_form_id];
+      if ($install_form_id === 'install_settings_form' && isset($values['driver']) && !str_contains($values['driver'], "\\")) {
+        @trigger_error("Passing a database driver name '{$values['driver']}' to " . __FUNCTION__ . '() is deprecated in drupal:10.2.0 and is removed from drupal:11.0.0. Pass a database driver namespace instead. See https://www.drupal.org/node/3258175', E_USER_DEPRECATED);
+        $driverExtension = Database::getDriverList()->getFromDriverName($values['driver']);
+        $tmp = [];
+        $tmp['driver'] = $driverExtension->getName();
+        $tmp[$driverExtension->getName()] = $values[$values['driver']];
+        $values = $tmp;
+      }
+      $form_state->setValues($values);
     }
     $form_builder->submitForm($form_id, $form_state);
 

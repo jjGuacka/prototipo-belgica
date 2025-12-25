@@ -1,0 +1,7 @@
+{% set dir = '_self' %}
+{% if items[0].content['#url'].external == true %}
+{% set dir = '_blank' %}
+{% endif %}
+<div class="card-img-overlay">
+    <a target="{{dir}}" href="{{items[0].content['#url']}}" class="btn btn-outline-light btn-lg">{{items[0].content['#title']}}</a>
+</div>

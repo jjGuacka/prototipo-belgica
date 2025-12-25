@@ -1,0 +1,9 @@
+{% set footer__base_class = 'footer' %}
+
+<footer {{ bem(footer__base_class) }}>
+  <div {{ bem('menu', [], footer__base_class) }}>
+    {% block footer__menu %}
+    {% endblock %}
+  </div>
+  {{ page.footerBelow }}
+</footer>
